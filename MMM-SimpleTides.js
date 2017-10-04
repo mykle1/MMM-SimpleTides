@@ -23,7 +23,8 @@ Module.register("MMM-SimpleTides", {
 
     getStyles: function() {
         return ["MMM-SimpleTides.css"];
-    },
+		return ["font-awesome.css"];
+	},
 
     start: function() {
         Log.info("Starting module: " + this.name);
@@ -37,6 +38,8 @@ Module.register("MMM-SimpleTides", {
         this.rotateInterval = null;
         this.scheduleUpdate();
     },
+	
+	
 
     getDom: function() {
 		
@@ -79,30 +82,41 @@ Module.register("MMM-SimpleTides", {
         var top = document.createElement("div");
         top.classList.add("list-row");
 		
-		
-		// TODO! Up arrow icon for high tide. Low arrow icon for low tide
-		
-		
-		// date and time
-        var date = document.createElement("div");
-        date.classList.add("small", "bright", "date");
+		// date and time adjusts to users local time // Stackoverflow.com
+        var dt = document.createElement("div");
+        dt.classList.add("small", "bright", "dt");
 	//	console.log(tides) // for checking
-		date.innerHTML = tides.date;
-        wrapper.appendChild(date);
+		dt.innerHTML = moment.utc(tides.dt * 1000).local(); // Stackoverflow.com
+        wrapper.appendChild(dt);
 		
 		
-        // height
-        var height = document.createElement("div");
-        height.classList.add("small", "bright", "height");
-        height.innerHTML = tides.height + " meters";
-        wrapper.appendChild(height);
- 
-
         // type = high or low tide
         var type = document.createElement("div");
         type.classList.add("small", "bright", "type");
-		type.innerHTML = tides.type + " tide";
+		if (tides.type == "Low"){
+			type.innerHTML = tides.type + " tide" + " &nbsp " + " <img class = img src=modules/MMM-SimpleTides/images/low.png width=10% height=10%>";
+		} else {
+		type.innerHTML = tides.type + " tide" + " &nbsp " + " <img class = img src=modules/MMM-SimpleTides/images/high.png width=10% height=10%>";
+		}
 		wrapper.appendChild(type);
+		
+		// height
+        var height = document.createElement("div");
+        height.classList.add("small", "bright", "height");
+        height.innerHTML = "Tide height is " + tides.height + " meters";
+        wrapper.appendChild(height);
+		
+		// Tide station nearest to config lat and lon
+        var station = document.createElement("div");
+        station.classList.add("small", "bright", "station");
+        station.innerHTML = this.station + " Tide station";
+        wrapper.appendChild(station);
+		
+		// lat and lon of tide station nearest to config lat and lon
+        var latLon = document.createElement("div");
+        latLon.classList.add("small", "bright", "latLon");
+        latLon.innerHTML = "Station location " + this.respLat + ", " + this.respLon;
+        wrapper.appendChild(latLon);
 						
 		}
         return wrapper;
@@ -110,7 +124,11 @@ Module.register("MMM-SimpleTides", {
 
 
     processTides: function(data) {
-        this.tides = data; // Object containing an array that contains objects
+		this.today = data.Today;
+		this.respLat = data.responseLat;
+		this.respLon = data.responseLon;
+		this.station = data.station;
+		this.tides = data.extremes; // Object containing an array that contains objects
         this.loaded = true;
 	//	console.log(this.tides); // for checking
     },
