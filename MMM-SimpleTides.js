@@ -11,6 +11,7 @@ Module.register("MMM-SimpleTides", {
         apiKey: "",		             // Free apiKey @ https://www.worldtides.info/register
         lat: "",                     // your latitude
         lon: "",                     // your longitude
+		height: "ft",                // ft = feet, m = meters for tide height
         useHeader: false,                 // False if you don't want a header      
         header: "",                      // Change in config file. useHeader must be true
         maxWidth: "300px",
@@ -46,6 +47,7 @@ Module.register("MMM-SimpleTides", {
 		var apiKey = this.config.apiKey;
 		var lat = this.config.lat;
 		var lon = this.config.lon;
+		var height = this.config.height
 
         var wrapper = document.createElement("div");
         wrapper.className = "wrapper";
@@ -90,7 +92,7 @@ Module.register("MMM-SimpleTides", {
         wrapper.appendChild(dt);
 		
 		
-        // type = high or low tide
+        // type = High or Low tide
         var type = document.createElement("div");
         type.classList.add("small", "bright", "type");
 		if (tides.type == "Low"){
@@ -100,10 +102,14 @@ Module.register("MMM-SimpleTides", {
 		}
 		wrapper.appendChild(type);
 		
-		// height
+		// height of tide variance (round to two decimals for ft, m is three decimals)
         var height = document.createElement("div");
         height.classList.add("small", "bright", "height");
+		if (this.config.height == "ft"){
+			height.innerHTML = "Tide height is " + Number(Math.round(tides.height * 3.28+'e2') +'e-2') + " ft"; // https://jsfiddle.net/k5tpq3pd/36/
+		} else {
         height.innerHTML = "Tide height is " + tides.height + " meters";
+		}
         wrapper.appendChild(height);
 		
 		// Tide station nearest to config lat and lon

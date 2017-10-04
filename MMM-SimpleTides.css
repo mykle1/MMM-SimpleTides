@@ -6,30 +6,35 @@
 
 
 .MMM-SimpleTides .header {
-  color: white;             /* Color the name text. Default is white. */
+  color: white;               /* Color the name text. Default is white. */
   text-align: left;           /* Align the name text. (left, center, right) */
 }
 
-.MMM-SimpleTides .date {
-  color: white;             /* Color the date text. Default is white. */
-  text-align: left;           /* Align the date text. (left, center, right) */
+.MMM-SimpleTides .dt {
+  color: white;               /* Color the date and time text. Default is white. */
+  text-align: left;           /* Align the date and time text. (left, center, right) */
 }
 
 .MMM-SimpleTides .height {
-  color: white;             /* Color the height text. Default is white. */
+  color: white;               /* Color the height text. Default is white. */
   text-align: left;           /* Align the height. (left, center, right) */
 /*  display: none; */         /* Uncomment if you don't want the height */
 }
 
 .MMM-SimpleTides .type {
-  color: white;             /* Color the type. Default is white. */
-  text-align: left;           /* Align the type. (left, center, right) */
+  color: white;               /* Color the High/Low tide. Default is white. */
+  text-align: left;           /* Align the High/Low tide. (left, center, right) */
 /*  display: none; */         /* Uncomment if you don't want the type */
 }
 
-.MMM-SimpleTides .photo {
-    width: 300px;             /* Maximum width of image. Retains aspect ratio */
-    padding: 0px;             /* Nudge image */
-    float: left;              /* Align the picture. (left, center, right) */
-/*  display: none; */         /* Uncomment if you don't want picture */
+.MMM-SimpleTides .station {
+  color: white;               /* Color the station. Default is white. */
+  text-align: left;           /* Align the station. (left, center, right) */
+/*  display: none; */         /* Uncomment if you don't want the station */
+}
+
+.MMM-SimpleTides .latLon {
+  color: white;               /* Color the latLon. Default is white. */
+  text-align: left;           /* Align the latLon. (left, center, right) */
+/*  display: none; */         /* Uncomment if you don't want the latLon */
 }
