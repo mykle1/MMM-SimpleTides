@@ -8,24 +8,23 @@ Module.register("MMM-SimpleTides", {
 
     // Module config defaults.
     defaults: {
-        apiKey: "",		             // Free apiKey @ https://www.worldtides.info/register
-        lat: "",                     // your latitude
-        lon: "",                     // your longitude
-		height: "ft",                // ft = feet, m = meters for tide height
-        useHeader: false,                 // False if you don't want a header      
-        header: "",                      // Change in config file. useHeader must be true
+        apiKey: "", // Free apiKey @ https://www.worldtides.info/register
+        lat: "", // your latitude
+        lon: "", // your longitude
+        height: "ft", // ft = feet, m = meters for tide height
+        useHeader: false, // False if you don't want a header      
+        header: "", // Change in config file. useHeader must be true
         maxWidth: "300px",
-        animationSpeed: 3000,            // fade speed
+        animationSpeed: 3000, // fade speed
         initialLoadDelay: 3250,
         retryDelay: 2500,
-        rotateInterval: 5 * 60 * 1000,   // 5 minutes
-        updateInterval: 60 * 60 * 1000,  // 1000 free calls a month
+        rotateInterval: 5 * 60 * 1000, // 5 minutes
+        updateInterval: 60 * 60 * 1000, // Equals 720 of 1000 free calls a month
     },
 
     getStyles: function() {
         return ["MMM-SimpleTides.css"];
-		return ["font-awesome.css"];
-	},
+    },
 
     start: function() {
         Log.info("Starting module: " + this.name);
@@ -39,104 +38,108 @@ Module.register("MMM-SimpleTides", {
         this.rotateInterval = null;
         this.scheduleUpdate();
     },
-	
-	
+
 
     getDom: function() {
-		
-		var apiKey = this.config.apiKey;
-		var lat = this.config.lat;
-		var lon = this.config.lon;
-		var height = this.config.height
 
+        var apiKey = this.config.apiKey;
+        var lat = this.config.lat;
+        var lon = this.config.lon;
+        var height = this.config.height
+
+		
         var wrapper = document.createElement("div");
         wrapper.className = "wrapper";
         wrapper.style.maxWidth = this.config.maxWidth;
 
+		
         if (!this.loaded) {
             wrapper.innerHTML = "First the tide rushes in . . .";
             wrapper.classList.add("bright", "light", "small");
             return wrapper;
         }
 
+		
         if (this.config.useHeader != false) {
             var header = document.createElement("header");
             header.classList.add("xsmall", "bright", "header");
             header.innerHTML = this.config.header;
             wrapper.appendChild(header);
         }
+
 		
-		
-		
-	//	Rotating my data
-		var tides = this.tides;
-		
-		 var keys = Object.keys(this.tides);
+            //	    Rotating my data
+            var tides = this.tides;
+
+            var keys = Object.keys(this.tides);
         if (keys.length > 0) {
             if (this.activeItem >= keys.length) {
                 this.activeItem = 0;
             }
             var tides = this.tides[keys[this.activeItem]];
-		
-		
-	//	console.log(tides); // for checking
 
-        var top = document.createElement("div");
-        top.classList.add("list-row");
-		
-		// date and time adjusts to users local time // Stackoverflow.com
-        var dt = document.createElement("div");
-        dt.classList.add("small", "bright", "dt");
-	//	console.log(tides) // for checking
-		dt.innerHTML = moment.utc(tides.dt * 1000).local(); // Stackoverflow.com
-        wrapper.appendChild(dt);
-		
-		
-        // type = High or Low tide
-        var type = document.createElement("div");
-        type.classList.add("small", "bright", "type");
-		if (tides.type == "Low"){
-			type.innerHTML = tides.type + " tide" + " &nbsp " + " <img class = img src=modules/MMM-SimpleTides/images/low.png width=10% height=10%>";
-		} else {
-		type.innerHTML = tides.type + " tide" + " &nbsp " + " <img class = img src=modules/MMM-SimpleTides/images/high.png width=10% height=10%>";
-		}
-		wrapper.appendChild(type);
-		
-		// height of tide variance (round to two decimals for ft, m is three decimals)
-        var height = document.createElement("div");
-        height.classList.add("small", "bright", "height");
-		if (this.config.height == "ft"){
-			height.innerHTML = "Tide height is " + Number(Math.round(tides.height * 3.28+'e2') +'e-2') + " ft"; // https://jsfiddle.net/k5tpq3pd/36/
-		} else {
-        height.innerHTML = "Tide height is " + tides.height + " meters";
-		}
-        wrapper.appendChild(height);
-		
-		// Tide station nearest to config lat and lon
-        var station = document.createElement("div");
-        station.classList.add("small", "bright", "station");
-        station.innerHTML = this.station + " Tide station";
-        wrapper.appendChild(station);
-		
-		// lat and lon of tide station nearest to config lat and lon
-        var latLon = document.createElement("div");
-        latLon.classList.add("small", "bright", "latLon");
-        latLon.innerHTML = "Station location " + this.respLat + ", " + this.respLon;
-        wrapper.appendChild(latLon);
-						
-		}
+
+            //	console.log(tides); // for checking
+
+            var top = document.createElement("div");
+            top.classList.add("list-row");
+
+            // date and time adjusts to users local time // Stackoverflow.com
+            var dt = document.createElement("div");
+            dt.classList.add("small", "bright", "dt");
+            //	console.log(tides) // for checking
+            dt.innerHTML = moment.utc(tides.dt * 1000).local(); // Stackoverflow.com
+            wrapper.appendChild(dt);
+
+
+            // type = High or Low tide
+            var type = document.createElement("div");
+            type.classList.add("small", "bright", "type");
+        if (tides.type == "Low") {
+                type.innerHTML = tides.type + " tide" + " &nbsp " + " <img class = img src=modules/MMM-SimpleTides/images/low.png width=10% height=10%>";
+        } else {
+                type.innerHTML = tides.type + " tide" + " &nbsp " + " <img class = img src=modules/MMM-SimpleTides/images/high.png width=10% height=10%>";
+            }
+            wrapper.appendChild(type);
+			
+
+            // height of tide variance (round to two decimals for ft, m is three decimals)
+            var height = document.createElement("div");
+            height.classList.add("small", "bright", "height");
+        if (this.config.height == "ft") {
+                height.innerHTML = "Tide height is " + Number(Math.round(tides.height * 3.28 + 'e2') + 'e-2') + " ft"; // https://jsfiddle.net/k5tpq3pd/36/
+        } else {
+                height.innerHTML = "Tide height is " + tides.height + " meters";
+            }
+            wrapper.appendChild(height);
+			
+
+            // Tide station nearest to config lat and lon
+            var station = document.createElement("div");
+            station.classList.add("small", "bright", "station");
+            station.innerHTML = this.station + " Tide station";
+            wrapper.appendChild(station);
+			
+
+            // lat and lon of tide station nearest to config lat and lon
+            var latLon = document.createElement("div");
+            latLon.classList.add("small", "bright", "latLon");
+            latLon.innerHTML = "Station location " + this.respLat + ", " + this.respLon;
+            wrapper.appendChild(latLon);
+
+        }
         return wrapper;
     },
 
 
     processTides: function(data) {
-		this.today = data.Today;
-		this.respLat = data.responseLat;
-		this.respLon = data.responseLon;
-		this.station = data.station;
-		this.tides = data.extremes; // Object containing an array that contains objects
+        this.today = data.Today;
+        this.respLat = data.responseLat; // before extremes object
+        this.respLon = data.responseLon; // before extremes object
+        this.station = data.station; // before extremes object
+        this.tides = data.extremes; // Object
         this.loaded = true;
-	//	console.log(this.tides); // for checking
+        //	console.log(this.tides); // for checking
     },
 
     scheduleCarousel: function() {
