@@ -10,6 +10,7 @@ screen real estate. My hope is that they are all informative, or fun, or both.
 
 ## What you get
 
+* A rotation of tides for the next 48 hours
 * Date and time coinciding with tides
 * High tide or Low tide with icon indicator
 * Height variance of tide in feet or meters
