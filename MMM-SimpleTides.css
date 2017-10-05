@@ -22,7 +22,7 @@
 }
 
 .MMM-SimpleTides .type {
-  color: white;               /* Color the High/Low tide. Default is white. */
+  color: white               /* Color the High/Low tide. Default is white. */
   text-align: left;           /* Align the High/Low tide. (left, center, right) */
 /*  display: none; */         /* Uncomment if you don't want the type */
 }

@@ -21,8 +21,8 @@ module.exports = NodeHelper.create({
             method: 'GET'
         }, (error, response, body) => {
             if (!error && response.statusCode == 200) {
-                var result = JSON.parse(body).extremes;
-				console.log(response.statusCode + result); // for checking
+                var result = JSON.parse(body);
+			//	console.log(response.statusCode + result); // for checking
                 this.sendSocketNotification('TIDES_RESULT', result);
             }
         });
