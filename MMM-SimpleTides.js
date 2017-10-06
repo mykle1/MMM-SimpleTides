@@ -32,7 +32,7 @@ Module.register("MMM-SimpleTides", {
         requiresVersion: "2.1.1",
 
         //  Set locale.
-        this.url = "https://www.worldtides.info/api?extremes&lat=" + this.config.lat + "&lon=" + this.config.lon + "&key=" + this.config.apiKey;
+        this.url = "https://www.worldtides.info/api?extremes&lat=" + this.config.lat + "&lon=" + this.config.lon + "&length=604800&key=" + this.config.apiKey;
         this.tides = [];
         this.activeItem = 0;
         this.rotateInterval = null;
@@ -41,25 +41,20 @@ Module.register("MMM-SimpleTides", {
 
 
     getDom: function() {
-
-        var apiKey = this.config.apiKey;
-        var lat = this.config.lat;
-        var lon = this.config.lon;
-        var height = this.config.height
-
 		
+		// create wrapper
         var wrapper = document.createElement("div");
         wrapper.className = "wrapper";
         wrapper.style.maxWidth = this.config.maxWidth;
 
-		
+		// Loading 
         if (!this.loaded) {
             wrapper.innerHTML = "First the tide rushes in . . .";
             wrapper.classList.add("bright", "light", "small");
             return wrapper;
         }
 
-		
+		// header
         if (this.config.useHeader != false) {
             var header = document.createElement("header");
             header.classList.add("xsmall", "bright", "header");
@@ -67,8 +62,7 @@ Module.register("MMM-SimpleTides", {
             wrapper.appendChild(header);
         }
 
-		
-            //	    Rotating my data
+            // Rotating my data
             var tides = this.tides;
 
             var keys = Object.keys(this.tides);
@@ -78,27 +72,26 @@ Module.register("MMM-SimpleTides", {
             }
             var tides = this.tides[keys[this.activeItem]];
 
-
             //	console.log(tides); // for checking
 
             var top = document.createElement("div");
             top.classList.add("list-row");
 
-            // date and time adjusts to users local time // Stackoverflow.com
+            // Weekday and date adjusts to users local time and format // Stackoverflow.com
             var dt = document.createElement("div");
             dt.classList.add("small", "bright", "dt");
             //	console.log(tides) // for checking
-            dt.innerHTML = moment.utc(tides.dt * 1000).local().format("ddd. MMM-DD-YYYY - hh:mm A"); // Stackoverflow.com
+            dt.innerHTML = moment.utc(tides.dt * 1000).local().format("dddd, MMM DD, YYYY"); // Stackoverflow.com
             wrapper.appendChild(dt);
 
 
-            // type = High or Low tide
+            // type = High or Low tide, icon AND time
             var type = document.createElement("div");
             type.classList.add("small", "bright", "type");
         if (tides.type == "Low") {
-                type.innerHTML = tides.type + " tide" + " &nbsp " + " <img class = img src=modules/MMM-SimpleTides/images/low.png width=10% height=10%>";
+                type.innerHTML = tides.type + " tide" + " &nbsp " + " <img class = img src=modules/MMM-SimpleTides/images/low.png width=10% height=10%>" + " &nbsp " + moment.utc(tides.dt * 1000).local().format("  h:mm A");
         } else {
-                type.innerHTML = tides.type + " tide" + " &nbsp " + " <img class = img src=modules/MMM-SimpleTides/images/high.png width=10% height=10%>";
+                type.innerHTML = tides.type + " tide" + " &nbsp " + " <img class = img src=modules/MMM-SimpleTides/images/high.png width=10% height=10%>" + " &nbsp " + moment.utc(tides.dt * 1000).local().format("  h:mm A");
             }
             wrapper.appendChild(type);
 			

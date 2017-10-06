@@ -6,8 +6,8 @@
 
 
 .MMM-SimpleTides .header {
-  color: white;               /* Color the name text. Default is white. */
-  text-align: left;           /* Align the name text. (left, center, right) */
+  color: white;               /* Color the header text. Default is white. */
+  text-align: left;           /* Align the header text. (left, center, right) */
 }
 
 .MMM-SimpleTides .dt {
@@ -15,26 +15,30 @@
   text-align: left;           /* Align the date and time text. (left, center, right) */
 }
 
-.MMM-SimpleTides .height {
-  color: white;               /* Color the height text. Default is white. */
-  text-align: left;           /* Align the height. (left, center, right) */
-/*  display: none; */         /* Uncomment if you don't want the height */
-}
-
 .MMM-SimpleTides .type {
-  color: white               /* Color the High/Low tide. Default is white. */
+  color: white                /* Color the High/Low tide. Default is white. */
   text-align: left;           /* Align the High/Low tide. (left, center, right) */
 /*  display: none; */         /* Uncomment if you don't want the type */
 }
 
+.MMM-SimpleTides .img {
+  margin-bottom: -4px;        /* Centers icon between lines. */
+}
+
+.MMM-SimpleTides .height {
+  color: white;               /* Color the tidal variance text. Default is white. */
+  text-align: left;           /* Align the tidal variance. (left, center, right) */
+/*  display: none; */         /* Uncomment if you don't want the height */
+}
+
 .MMM-SimpleTides .station {
-  color: white;               /* Color the station. Default is white. */
-  text-align: left;           /* Align the station. (left, center, right) */
+  color: white;               /* Color the location name. Default is white. */
+  text-align: left;           /* Align the location name. (left, center, right) */
 /*  display: none; */         /* Uncomment if you don't want the station */
 }
 
 .MMM-SimpleTides .latLon {
-  color: white;               /* Color the latLon. Default is white. */
-  text-align: left;           /* Align the latLon. (left, center, right) */
+  color: white;               /* Color the latLon of tide station. Default is white. */
+  text-align: left;           /* Align the latLon of tide station. (left, center, right) */
 /*  display: none; */         /* Uncomment if you don't want the latLon */
 }
