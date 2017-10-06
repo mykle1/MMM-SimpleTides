@@ -88,7 +88,7 @@ Module.register("MMM-SimpleTides", {
             var dt = document.createElement("div");
             dt.classList.add("small", "bright", "dt");
             //	console.log(tides) // for checking
-            dt.innerHTML = moment.utc(tides.dt * 1000).local(); // Stackoverflow.com
+            dt.innerHTML = moment.utc(tides.dt * 1000).local().format("ddd. MMM-DD-YYYY - hh:mm A"); // Stackoverflow.com
             wrapper.appendChild(dt);
 
 
@@ -107,9 +107,9 @@ Module.register("MMM-SimpleTides", {
             var height = document.createElement("div");
             height.classList.add("small", "bright", "height");
         if (this.config.height == "ft") {
-                height.innerHTML = "Tide height is " + Number(Math.round(tides.height * 3.28 + 'e2') + 'e-2') + " ft"; // https://jsfiddle.net/k5tpq3pd/36/
+                height.innerHTML = "Tidal variance is " + Number(Math.round(tides.height * 3.28 + 'e2') + 'e-2') + " ft"; // https://jsfiddle.net/k5tpq3pd/36/
         } else {
-                height.innerHTML = "Tide height is " + tides.height + " meters";
+                height.innerHTML = "Tidal variance is " + tides.height + " meters";
             }
             wrapper.appendChild(height);
 			
@@ -117,14 +117,14 @@ Module.register("MMM-SimpleTides", {
             // Tide station nearest to config lat and lon
             var station = document.createElement("div");
             station.classList.add("small", "bright", "station");
-            station.innerHTML = this.station + " Tide station";
+            station.innerHTML = this.station;
             wrapper.appendChild(station);
 			
 
             // lat and lon of tide station nearest to config lat and lon
             var latLon = document.createElement("div");
             latLon.classList.add("small", "bright", "latLon");
-            latLon.innerHTML = "Station location " + this.respLat + ", " + this.respLon;
+            latLon.innerHTML = "Tide station " + this.respLat + ", " + this.respLon;
             wrapper.appendChild(latLon);
 
         }
