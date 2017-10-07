@@ -1,6 +1,6 @@
 ## MMM-SimpleTides
 
-A simple tide module.
+A simple rotation of tides module.
 
 ## S.O.P.
 
@@ -17,6 +17,8 @@ screen real estate. My hope is that they are all informative, or fun, or both.
 * Name of the location of the tide station
 * Tide station used is the closest to your longitude and latitude
 * The actual longitude and latitude of tide station being used
+
+* Prefer a static display of tides? Try [MMM-StaticTides](https://github.com/mykle1/MMM-StaticTides)
 
 ## Examples
 
